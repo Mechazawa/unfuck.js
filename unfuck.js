@@ -89,6 +89,18 @@
     });
     
     /**
+     * @function insert
+     * @module String
+     * @param {number} index - Index to insert at
+     * @param {string} str - What to insert
+     * Inserts a string at the specified index
+     * @example "Quick fox".insert(6, "brown ") === "Quick brown fox"
+     */
+    extend(string, 'insert', function(index, str) {
+        return this.substring(0, index) + str + this.substring(index, this.length);
+    });
+    
+    /**
      * @function contains
      * @module String
      * @param {string} what - What to search for
