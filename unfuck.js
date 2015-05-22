@@ -11,12 +11,12 @@
         object = Object,
         number = Number;
     
-	function extend(obj, name, func) {
-		object.defineProperty(obj.prototype, name, {
-			enumerable: false,
-			value: func
-		});
-	}
+    function extend(obj, name, func) {
+        object.defineProperty(obj.prototype, name, {
+            enumerable: false,
+            value: func
+        });
+    }
 	
     // Extending existing stuff
     /**
