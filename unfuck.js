@@ -5,12 +5,19 @@
     // extending the standard objects but I honestly 
     // don't care.
 
-    // Alias the prototype objects
-    var sProto = String.prototype,
-        aProto = Array.prototype,
-        oProto = Object.prototype,
-        nProto = Number.prototype;
+    // Alias the objects
+    var string = String,
+        array = Array,
+        object = Object,
+        number = Number;
     
+	function extend(obj, name, func) {
+		object.defineProperty(obj.prototype, name, {
+			enumerable: false,
+			value: func
+		});
+	}
+	
     // Extending existing stuff
     /**
      * @function regex escape
@@ -19,7 +26,7 @@
      * Escapes a string so that it can safely be used in a regex.
      * Taken from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript/3561711#3561711
      */
-    RegExp.escape= function(str) {
+    RegExp.escape = function(str) {
         return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     };
     
@@ -32,34 +39,34 @@
      * @param {string} [str= ] - A set of trimable characters
      * @example "#!#!Hey!#!#!".trim('#!') == "Hey"
      */
-    sProto.trim = function(str) {
+    extend(string, 'trim', function(str) {
         str = RegExp.escape(str || ' ');
 	    return this.replace(new RegExp('^[' + str + ']+|[' + str + ']+$', 'g'), '');
-    }
+    });
 
     /**
      * Trims the start of a string
-     * @function trim 
+     * @function ltrim 
      * @module String
      * @param {string} [str= ] - A set of trimable characters
      * @example "#!#!Hey!#!#!".ltrim('#!') == "Hey!#!#!"
      */
-    sProto.ltrim = function(str) {
+    extend(string, 'ltrim', function(str) {
         str = RegExp.escape(str || ' ');
 	    return this.replace(new RegExp('^[' + str + ']+'), '');
-    }
+    });
     
     /**
      * Trims the end of a string
-     * @function trim 
+     * @function rtrim 
      * @module String
      * @param {string} [str= ] - A set of trimable characters
      * @example "#!#!Hey!#!#!".rtrim('#!') == "#!#!Hey"
      */
-    sProto.rtrim = function(str) {
+    extend(string, 'rtrim', function(str) {
         str = RegExp.escape(str || ' ');
 	    return this.replace(new RegExp('[' + str + ']+$'), '');
-    }
+    });
     
     /**
      * @function capitalize 
@@ -67,9 +74,9 @@
      * Makes the first character uppercase
      * @example "hello world!".capitalize() === "Hello world!"
      */
-    sProto.capitalize = function() {
+    extend(string, 'capitalize', function() {
         return this.charAt(0).toUpperCase() + this.slice(1);
-    };
+    });
     
     /**
      * @function reverse
@@ -77,9 +84,9 @@
      * Reverses the string
      * @example "Hello World!".reverse() === "!dlroW olleH";
      */
-    sProto.reverse = function() {
+    extend(string, 'reverse', function() {
         return this.split("").reverse().join("");
-    };
+    });
     
     /**
      * @function contains
@@ -88,9 +95,9 @@
      * Test if the string contains a substring
      * @example "Quick brown fox".contains("brown") === true
      */
-    sProto.contains = function(what) {
+    extend(string, 'contains', function(what) {
         return this.indexOf(what) !== -1;
-    };
+    });
     
     /**
      * @function endsWith 
@@ -99,7 +106,7 @@
      * Tests if a string ends with the provided string
      * @example "Hello World".endsWith("World") === true
      */
-    sProto.endsWith = (sProto.endsWith || function(what) {
+    extend(string, 'endsWith', function(what) {
         return this.indexOf(what, this.length - what.length) !== -1;
     });
     
@@ -111,7 +118,7 @@
      * @example "Hello {1} {0}!".format("Doe", "John")
      * @example "Hello {first} {last}!".format({first: "John", last: "Doe"})
      */
-    sProto.format = function() {
+    extend(string, 'format', function() {
         var str = this.toString();
         if (!arguments.length) {
             return str;
@@ -125,7 +132,7 @@
         }
         
         return str;
-    }
+    });
     
     // Array methods
     /**
@@ -135,9 +142,9 @@
      * Tests if the array contains the item
      * @example ["Blue", "Red", "Green"].contains("Red")
      */
-    aProto.contains = function(item) {
+    extend(array, 'contains', function(item) {
         return this.indexOf(item) !== -1;
-    };
+    });
     
     /**
      * @function first 
@@ -148,16 +155,16 @@
      * @example ["Blue", "Red", "Green"].first() === "Blue"
      * @example ["Blue", "Red", "Green"].first(1) === ["Blue"]
      */
-    aProto.first = function(amount) {
+    extend(array, 'first', function(amount) {
         var ret = this.slice(0, Math.max(0, amount == null ? 1 : amount));
         return amount === undefined ? ret[0] : ret;
-    }
+    });
 
     /**
      * @alias first 
      * @module Array
      */
-    aProto.take = Array.prototype.first;
+	extend(array, 'take', Array.prototype.first)
     
     // Object methods
     
@@ -168,7 +175,7 @@
      * Test if you're dealing with number
      * @example (+"asd").isNaN() === true
      */
-    nProto.isNaN = function() { 
+    extend(number, 'isNaN', function() { 
         return +this !== +this;
-    };
+    });
 }()
