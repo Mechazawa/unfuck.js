@@ -34,7 +34,7 @@
      */
     sProto.trim = function(str) {
         str = RegExp.escape(str || ' ');
-	    return this.replace(new RegExp('/^[' + str + ']+|[' + str + ']+$/g'), '');
+	    return this.replace(new RegExp('^[' + str + ']+|[' + str + ']+$', 'g'), '');
     }
 
     /**
@@ -46,7 +46,7 @@
      */
     sProto.ltrim = function(str) {
         str = RegExp.escape(str || ' ');
-	    return this.replace(new RegExp('/^[' + str + ']+/'), '');
+	    return this.replace(new RegExp('^[' + str + ']+'), '');
     }
     
     /**
@@ -58,7 +58,7 @@
      */
     sProto.rtrim = function(str) {
         str = RegExp.escape(str || ' ');
-	    return this.replace(new RegExp('/[' + str + ']+$/'), '');
+	    return this.replace(new RegExp('[' + str + ']+$'), '');
     }
     
     /**
