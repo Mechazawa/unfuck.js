@@ -17,7 +17,7 @@
             value: func
         });
     }
-	
+    
     // Extending existing stuff
     /**
      * @function regex escape
@@ -41,7 +41,7 @@
      */
     extend(string, 'trim', function(str) {
         str = RegExp.escape(str || ' ');
-	    return this.replace(new RegExp('^[' + str + ']+|[' + str + ']+$', 'g'), '');
+        return this.replace(new RegExp('^[' + str + ']+|[' + str + ']+$', 'g'), '');
     });
 
     /**
@@ -53,7 +53,7 @@
      */
     extend(string, 'ltrim', function(str) {
         str = RegExp.escape(str || ' ');
-	    return this.replace(new RegExp('^[' + str + ']+'), '');
+        return this.replace(new RegExp('^[' + str + ']+'), '');
     });
     
     /**
@@ -65,7 +65,7 @@
      */
     extend(string, 'rtrim', function(str) {
         str = RegExp.escape(str || ' ');
-	    return this.replace(new RegExp('[' + str + ']+$'), '');
+        return this.replace(new RegExp('[' + str + ']+$'), '');
     });
     
     /**
@@ -176,7 +176,7 @@
      * @alias first 
      * @module Array
      */
-	extend(array, 'take', Array.prototype.first)
+    extend(array, 'take', Array.prototype.first)
     
     // Object methods
     
