@@ -173,6 +173,20 @@
     });
 
     /**
+     * @function last 
+     * @module Array
+     * @param {integer} [amount=1] - How many items to return
+     * Fetches the last n items
+     * @example ["Blue", "Red", "Green"].last(2) === ["Red", "Green"]
+     * @example ["Blue", "Red", "Green"].last() === "Green"
+     * @example ["Blue", "Red", "Green"].last(1) === ["Green"]
+     */
+    extend(array, 'last', function(amount) {
+        // Lazy last
+        return this.reverse().first(amount).reverse();
+    });
+
+    /**
      * @alias first 
      * @module Array
      */
