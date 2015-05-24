@@ -179,7 +179,7 @@
      * Fetches the last n items
      * @example ["Blue", "Red", "Green"].last(2) === ["Red", "Green"]
      * @example ["Blue", "Red", "Green"].last() === "Green"
-     * @example ["Blue", "Red", "Green"].last(1) === ["Blue"]
+     * @example ["Blue", "Red", "Green"].last(1) === ["Green"]
      */
     extend(array, 'last', function(amount) {
         // Lazy last
@@ -204,6 +204,28 @@
         return this.slice();
     });
     
+    /**
+     * @function range 
+     * @module Array
+     * Generates an array of integers
+     * @example 
+     * Array.range(5) === [0, 1, 2, 3, 4]
+     * Array.range(5, 1, 10) === [10, 11, 12, 13, 14]
+     * Array.range(5, 10) === [0, 10, 20, 30, 40]
+     * Array.range(5, -1) === [0, -1, -2, -3, -4]
+     */
+    Array.range = function(count, step, start) {
+        start = start || 0;
+        step  = step  || 1;
+
+        var range = Array(count);
+        for (var i = 0; i < count; i++, start += step) {
+            range[i] = start;
+        }
+
+        return range;
+    };
+
     // Object methods
 
     /**
