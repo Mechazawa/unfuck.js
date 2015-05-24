@@ -179,7 +179,7 @@
      * Fetches the last n items
      * @example ["Blue", "Red", "Green"].last(2) === ["Red", "Green"]
      * @example ["Blue", "Red", "Green"].last() === "Green"
-     * @example ["Blue", "Red", "Green"].last(1) === ["Green"]
+     * @example ["Blue", "Red", "Green"].last(1) === ["Blue"]
      */
     extend(array, 'last', function(amount) {
         // Lazy last
@@ -190,9 +190,62 @@
      * @alias first 
      * @module Array
      */
-    extend(array, 'take', Array.prototype.first)
+    extend(array, 'take', array.prototype.first)
+
+    /**
+     * @function clone 
+     * @module Array
+     * Clones an array
+     * @example 
+     * var x = [1, 2, 3];
+     * var y = x.clone();
+     */
+    extend(array, 'clone', function() {
+        return this.slice();
+    });
     
     // Object methods
+
+    /**
+     * @function clone 
+     * @module Array
+     * Clones an array
+     * @example 
+     * function x(){}
+     * x.prototype.foo = 123;
+     * x.prototype.bar = function() { return this.foo; }
+     * 
+     * var y = x.clone();
+     */
+    extend(object, 'clone', function() {
+        // http://davidwalsh.name/javascript-clone
+        function mixin(dest, source, copyFunc) {
+            var name, s, empty = {};
+            for(name in source){
+                // the (!(name in empty) || empty[name] !== s) condition avoids copying properties in "source"
+                // inherited from Object.prototype.  For example, if dest has a custom toString() method,
+                // don't overwrite it with the toString() method that source inherited from Object.prototype
+                s = source[name];
+                if(!(name in dest) || (dest[name] !== s && (!(name in empty) || empty[name] !== s))){
+                    dest[name] = copyFunc ? copyFunc(s) : s;
+                }
+            }
+            return dest;
+        }
+
+        if(!this || typeof this != "object" || this.toString() === "[object Function]"){
+            return src;
+        } if(this.nodeType && "cloneNode" in src){
+            return src.cloneNode(true);
+        } if(this instanceof Date){
+            return new Date(this.getTime());
+        } if(this instanceof RegExp){
+            return new RegExp(this); 
+        }
+
+        var r = this.constructor ? new this.constructor() : {};
+        return mixin(r, this, clone);
+    });
     
     // Number methods
     /**
@@ -204,4 +257,4 @@
     extend(number, 'isNaN', function() { 
         return +this !== +this;
     });
-}()
+}();
