@@ -31,7 +31,7 @@
     };
     
     // String methods
-
+    var trimable_whitespace = '\uFEFF\xA0 \n\r';
     /**
      * Trims the start and end of a string
      * @function trim 
@@ -40,7 +40,7 @@
      * @example "#!#!Hey!#!#!".trim('#!') == "Hey"
      */
     extend(string, 'trim', function(str) {
-        str = RegExp.escape(str || ' ');
+        str = RegExp.escape(str || trimable_whitespace);
         return this.replace(new RegExp('^[' + str + ']+|[' + str + ']+$', 'g'), '');
     });
 
@@ -52,7 +52,7 @@
      * @example "#!#!Hey!#!#!".ltrim('#!') == "Hey!#!#!"
      */
     extend(string, 'ltrim', function(str) {
-        str = RegExp.escape(str || ' ');
+        str = RegExp.escape(str || trimable_whitespace);
         return this.replace(new RegExp('^[' + str + ']+'), '');
     });
     
@@ -64,7 +64,7 @@
      * @example "#!#!Hey!#!#!".rtrim('#!') == "#!#!Hey"
      */
     extend(string, 'rtrim', function(str) {
-        str = RegExp.escape(str || ' ');
+        str = RegExp.escape(str || trimable_whitespace);
         return this.replace(new RegExp('[' + str + ']+$'), '');
     });
     
