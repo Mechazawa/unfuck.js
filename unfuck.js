@@ -126,7 +126,7 @@
     /**
      * @function format 
      * @module String
-     * Tests if a string ends with the provided string
+     * Formats the provided string
      * @example "Hello {1} {0}!".format("Doe", "John")
      * @example "Hello {first} {last}!".format({first: "John", last: "Doe"})
      */
