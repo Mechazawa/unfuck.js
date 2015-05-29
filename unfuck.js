@@ -256,9 +256,9 @@
         }
 
         if(!this || typeof this != "object" || this.toString() === "[object Function]"){
-            return src;
-        } if(this.nodeType && "cloneNode" in src){
-            return src.cloneNode(true);
+            return this;
+        } if(this.nodeType && "cloneNode" in this){
+            return this.cloneNode(true);
         } if(this instanceof Date){
             return new Date(this.getTime());
         } if(this instanceof RegExp){
