@@ -205,6 +205,26 @@
     });
     
     /**
+     * @function remove 
+     * @module Array
+     * Removes an element from the array
+     * @example 
+     * // Remove the second item from the array
+     * array.remove(1);
+     * // Remove the second-to-last item from the array
+     * array.remove(-2);
+     * // Remove the second and third items from the array
+     * array.remove(1,2);
+     * // Remove the last and second-to-last items from the array
+     * array.remove(-2,-1);
+     */
+    extend(array, 'remove', function(from, to) {
+        var rest = this.slice((to || from) + 1 || this.length);
+        this.length = from < 0 ? this.length + from : from;
+        return this.push.apply(this, rest);
+    });
+    
+    /**
      * @function range 
      * @module Array
      * Generates an array of integers
