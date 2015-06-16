@@ -280,7 +280,7 @@
         } if(this.nodeType && "cloneNode" in this){
             return this.cloneNode(true);
         } if(this instanceof Date){
-            return new Date(this.getTime());
+            return new Date(this);
         } if(this instanceof RegExp){
             return new RegExp(this); 
         }
